@@ -1,0 +1,47 @@
+<div class="flex items-center justify-center">
+  <div class="container">
+    <table
+      class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5"
+    >
+      <thead class="text-white">
+        <tr *ngFor="let item of items | paginate : { itemsPerPage: 10, currentPage: page }"
+         class="bg-gray-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
+        >
+          <th class="p-3 text-center">Lead Id</th>
+          <th class="p-3 text-center">Name</th>
+          <th class="p-3 text-center">Email</th>
+          <th class="p-3 text-center">Source</th>
+          <th class="p-3 text-center" width="110px">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="flex-1 sm:flex-none">
+        <tr
+          class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
+          *ngFor="let item of items | paginate : { itemsPerPage: 10, currentPage: page }"
+        >
+          <td class="border-grey-light border hover:bg-gray-100 p-3 ">
+            {{ item.lead_id }}
+          </td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            {{ item.first_name }} {{ item.last_name }}
+          </td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            {{ item.email? item.email : 'Not Provided' }}
+          </td>
+          <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+            {{ item.source? item.source : 'Not Provided' }}
+          </td>
+          <td
+            class="border-grey-light border hover:bg-gray-100 p-3 text-blue-400 hover:text-blue-600 hover:font-medium cursor-pointer"
+            (click)="updateLead(item)"
+          >
+            Update
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="flex justify-center pt-2" *ngIf="items.length > 0">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
